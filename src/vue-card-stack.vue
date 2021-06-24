@@ -211,11 +211,11 @@ export default {
 
       if (this.isDraggingRight) {
         if (distanceTravelled > minDistanceToTravel) {
-          this.onNext();
+          this.onPrevious();
         }
       } else {
         if (distanceTravelled * -1 > minDistanceToTravel) {
-          this.onPrevious();
+          this.onNext();
         }
       }
     },
@@ -228,9 +228,9 @@ export default {
       );
 
       if (this.isDraggingRight) {
-        this.activeCardIndex = 1;
+        this.activeCardIndex = 0;
       } else {
-        this.activeCardIndex = 0; // first card is positioned offscreen
+        this.activeCardIndex = 1; // first card is positioned offscreen
       }
 
       this.stack = this.stack.map((card, index) => {
@@ -308,6 +308,7 @@ export default {
           opacity: card.opacity,
           display: card.display,
           top: `${card.yPos}px`,
+          right: `-30px`,
           width: `${card.width}px`,
           height: `${card.height}px`,
           zIndex: card.zIndex,
@@ -316,7 +317,7 @@ export default {
           }s ease, opacity ${speed}s ease`,
           transform: `
             scale(${card.scale}, ${card.scale}) 
-            translate(${card.xPos}px, 0)
+            translate(${-card.xPos}px, 0)
           `,
         }"
       >
